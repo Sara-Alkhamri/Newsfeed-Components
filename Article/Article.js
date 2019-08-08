@@ -85,6 +85,22 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Professional Software Development in 2019',
+    date: 'Jan 1st, 2019',
+    firstParagraph: `Hodor hodor HODOR! Hodor hodor - hodor, hodor. Hodor hodor... Hodor hodor hodor; hodor hodor. Hodor hodor hodor, hodor, hodor
+          hodor. Hodor, hodor. Hodor. Hodor, hodor - hodor... Hodor hodor hodor; hodor HODOR hodor, hodor hodor?! Hodor hodor, hodor.
+          Hodor hodor hodor hodor hodor! Hodor hodor - HODOR hodor, hodor hodor hodor hodor hodor; hodor hodor? `,
+
+    secondParagraph: `Hodor, hodor. Hodor. Hodor, hodor, hodor. Hodor hodor, hodor. Hodor hodor, hodor, hodor hodor. Hodor! Hodor hodor, hodor;
+          hodor hodor hodor? Hodor, hodor. Hodor. Hodor, hodor - HODOR hodor, hodor hodor hodor! Hodor, hodor. Hodor. Hodor, HODOR
+          hodor, hodor hodor, hodor, hodor hodor. Hodor hodor - hodor - hodor... Hodor hodor hodor hodor hodor hodor hodor?! Hodor
+          hodor - hodor hodor hodor. Hodor. Hodor hodor... Hodor hodor hodor hodor hodor? `,
+
+    thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
+          Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
+          Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
   }
 ];
 
@@ -103,13 +119,60 @@ const data = [
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each peice of the data object above.
 
-  Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
-
-  Step 3: return the entire component.
-
-  Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
-
-  Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
-
 */
-function articleComp (title, date, firstParagraph, secondParagraph, thirdParagraph);
+function newsFeed (title, date, firstParagraph, secondParagraph, thirdParagraph) {
+
+//define elements
+
+const articleDev = document.createElement('div');
+const articleHeading = document.createElement('h2');
+const datePar = document.createElement('p');
+const par1 = document.createElement('p');
+const par2 = document.createElement('p');
+const par3 = document.createElement('p');
+const span = document.createElement('span');
+
+//setup structure 
+
+articleDev.appendChild(articleHeading);
+articleDev.appendChild(datePar);
+articleDev.appendChild(par1);
+articleDev.appendChild(par2);
+articleDev.appendChild(par3);
+articleDev.appendChild(span);
+
+//set class names
+articleDev.classList.add('article');
+datePar.classList.add('date');
+span.classList.add('expandButton');
+
+// set text content/img
+
+articleHeading.textContent = title;
+datePar.textContent = date;
+par1.textContent = firstParagraph;
+par2.textContent = secondParagraph;
+par3.textContent = thirdParagraph;
+span.textContent = 'Click';
+
+// Step 2: Add an event listener to the expandButton span. This event listener should toggle the class 'article-open' on the 'article' div.
+
+span.addEventListener('click', (e) => {
+  articleDev.classList.toggle('article-open');
+})
+
+//   Step 3: return the entire component.
+return articleDev;
+
+};
+//   Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+const articles = document.querySelector('.articles');
+let newArticles = data.map((foo) => {
+  let ourReturn = newsFeed(foo.title, foo.date, foo.firstParagraph, foo.secondParagraph, foo.thirdParagraph);
+  return ourReturn;
+});
+//   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new artible
+// Step 4: Map over the data, creating a component for each oject and add each component to the DOM as children of the 'articles' div.
+newArticles.forEach((newArticles) => {
+  articles.appendChild(newArticles);
+})
